@@ -18,6 +18,7 @@
   align-items: center;
   margin-bottom: 20px;
   flex-wrap: wrap;
+  height: 40px;
 }
 
 .difficultySelect {
@@ -91,7 +92,8 @@
   align-items: center;
   justify-content: center;
   min-width: 80px;
-  margin-left: 0; /* Remove any margin */
+  margin: 0;
+  box-sizing: border-box;
 }
 
 .sudokuBoard {
@@ -157,7 +159,8 @@
 
 .selected {
   background-color: #fff;
-  border: 2px solid #ff9933;
+  border: 2px solid #ff9933 !important;
+  margin: -2px 0 0 -2px;
 }
 
 .selectedRow, .selectedColumn {
@@ -182,21 +185,21 @@
 }
 
 /* Remove right border from last column */
-.sudokuCell:last-child {
+.sudokuCell:last-child:not(.selected) {
   border-right: none !important;
 }
 
 /* Remove bottom border from last row */
-.sudokuRow:last-child .sudokuCell {
+.sudokuRow:last-child .sudokuCell:not(.selected) {
   border-bottom: none !important;
 }
 
 .numberPad {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  display: flex;
+  gap: 6px;
   width: 100%;
-  max-width: 240px;
+  max-width: 300px;
+  justify-content: center;
 }
 
 .numberButton {
@@ -209,7 +212,8 @@
   color: white;
   background-color: #67c23a;
   transition: all 0.2s;
-  min-width: 40px;
+  min-width: 35px;
+  padding: 0 8px;
 }
 
 .numberButton[data-charset="colors"] {
@@ -301,10 +305,13 @@
   .numberButton {
     height: 35px;
     font-size: 16px;
+    min-width: 30px;
+    padding: 0 6px;
   }
 
   .controls {
     gap: 8px;
+    height: 35px;
   }
 
   .difficultySelect {
@@ -316,7 +323,9 @@
   }
 
   .timer {
-    min-width: 70px;
+    height: 35px;
     font-size: 14px;
+    min-width: 70px;
+    padding: 6px 12px;
   }
 } 
