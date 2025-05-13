@@ -1,0 +1,322 @@
+.sudokuContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  max-width: 500px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.difficultySelect {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #333;
+  background-color: #fff;
+  cursor: pointer;
+  height: 40px;
+  min-width: 100px;
+}
+
+.difficultySelect:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+  opacity: 0.8;
+  border-color: #ddd;
+}
+
+.controlButton {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  height: 40px;
+  cursor: pointer;
+  background-color: #67c23a;
+  color: white;
+  min-width: 80px;
+}
+
+.showHints {
+  background-color: #409eff;
+  min-width: 40px;
+  padding: 8px;
+  font-size: 20px;
+}
+
+.showHints.active {
+  background-color: #f56c6c;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.showHints:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.timer {
+  background-color: #333;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 16px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  margin-left: 0; /* Remove any margin */
+}
+
+.sudokuBoard {
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
+  gap: 0;
+  border: 3px solid #999;  /* Thick outside border */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.sudokuRow {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+}
+
+.sudokuCell {
+  width: 65px;
+  height: 65px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  color: black;
+  border-right: 1px solid #999;
+  border-bottom: 1px solid #999;
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+
+/* Character set specific styles */
+.sudokuCell[data-charset="colors"] {
+  font-size: 0;
+}
+
+.sudokuCell[data-charset="colors"]:hover {
+  filter: brightness(0.9);
+}
+
+.sudokuCell[data-charset="animals"] {
+  font-size: 28px;
+}
+
+.sudokuCell[data-charset="letters"] {
+  font-size: 22px;
+}
+
+.sudokuCell:hover {
+  background-color: #f0f0f0;
+}
+
+.fixed {
+  background-color: #f0f0f0;
+  color: #4a90e2;
+}
+
+.selected {
+  background-color: #fff;
+  border: 2px solid #ff9933;
+}
+
+.selectedRow, .selectedColumn {
+  background-color: #f5f7fa;
+}
+
+.selectedNumber {
+  color: #409eff;
+}
+
+.invalid {
+  color: #f56c6c !important;
+}
+
+/* Thicker borders for 2x3 boxes */
+.sudokuCell:nth-child(3n) {
+  border-right: 3px solid #999;  /* Thick border every 3rd column */
+}
+
+.sudokuRow:nth-child(2n) .sudokuCell {
+  border-bottom: 3px solid #999;  /* Thick border every 2nd row */
+}
+
+/* Remove right border from last column */
+.sudokuCell:last-child {
+  border-right: none !important;
+}
+
+/* Remove bottom border from last row */
+.sudokuRow:last-child .sudokuCell {
+  border-bottom: none !important;
+}
+
+.numberPad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: 100%;
+  max-width: 240px;
+}
+
+.numberButton {
+  height: 40px;
+  border: none;
+  border-radius: 4px;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  color: white;
+  background-color: #67c23a;
+  transition: all 0.2s;
+  min-width: 40px;
+}
+
+.numberButton[data-charset="colors"] {
+  color: #fff;
+}
+
+.numberButton[data-charset="colors"]:hover {
+  filter: brightness(0.9);
+}
+
+.numberButton:hover {
+  opacity: 0.9;
+}
+
+.numberButton:active {
+  opacity: 0.8;
+}
+
+.numberButton.selected {
+  background-color: #409eff;
+  transform: scale(0.95);
+}
+
+/* Add specific styles for animal emojis */
+.numberButton[data-charset="animals"] {
+  background-color: #e0e0e0;
+  color: #333;
+  font-size: 24px;
+  padding: 4px;
+}
+
+.numberButton[data-charset="animals"]:hover {
+  background-color: #d0d0d0;
+}
+
+.numberButton[data-charset="animals"].selected {
+  background-color: #c0c0c0;
+  transform: scale(0.95);
+}
+
+.clear {
+  background-color: #f56c6c;
+  grid-column: auto;
+  width: auto;
+}
+
+.clear.selected {
+  background-color: #e64242;
+}
+
+.hint {
+  display: none;
+}
+
+.completionMessage {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px 40px;
+  border-radius: 4px;
+  font-size: 18px;
+  text-align: center;
+  z-index: 1000;
+}
+
+.superscript {
+  font-size: 14px;
+  position: relative;
+}
+
+.superscript::before {
+  content: attr(data-value);
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+/* Responsive styles */
+@media (max-width: 480px) {
+  .sudokuCell {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+  }
+
+  .numberButton {
+    height: 35px;
+    font-size: 16px;
+  }
+
+  .controls {
+    gap: 8px;
+  }
+
+  .difficultySelect {
+    min-width: 100px;
+  }
+
+  .controlButton {
+    min-width: 80px;
+  }
+
+  .timer {
+    min-width: 70px;
+    font-size: 14px;
+  }
+} 
